@@ -1,0 +1,21 @@
+{
+  "name": "insta-mapper",
+  "description": "Insta mapper pour découvrir ton chemin!",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BenjaminRqt/insta-mapper"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "vue": "^3.0.0-rc.1"
+  },
+  "devDependencies": {
+    "vite": "^1.0.0-rc.1",
+    "@vue/compiler-sfc": "^3.0.0-rc.1"
+  }
+}
