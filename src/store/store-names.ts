@@ -1,0 +1,1 @@
+export const INSTAGRAM_NAME = "INSTAGRAM_NAME";

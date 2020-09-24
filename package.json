@@ -2,6 +2,7 @@
   "name": "insta-mapper",
   "description": "Insta mapper pour découvrir ton chemin!",
   "version": "0.0.0",
+  "license": "Benjamin Rouquet",
   "repository": {
     "type": "git",
     "url": "https://github.com/BenjaminRqt/insta-mapper"
@@ -12,7 +13,10 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
-    "vue": "^3.0.0-rc.1"
+    "idb-keyval": "^3.2.0",
+    "vue": "^3.0.0-rc.1",
+    "vue-router": "^4.0.0-beta.11",
+    "vuex": "^4.0.0-beta.4"
   },
   "devDependencies": {
     "vite": "^1.0.0-rc.1",
