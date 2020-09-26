@@ -3,7 +3,10 @@
     <label>Id utilisateur
       <input name="id_user" v-model="state.userId" placeholder="Id utilisateur">
     </label>
-    <button @click="search()">Tester moi</button>
+    <button @click="search()">
+      <span v-if="instagramState.loading">Traitement en cours</span>
+      <span v-else>Tester moi</span>
+    </button>
     <button @click="reset()">Reset</button>
   </div>
 
