@@ -4,6 +4,6 @@ export const getUserApi = (idUser: string) => {
     return Api.get(`/${idUser}/?__a=1`);
 };
 
-export const getLocation = (idLocation: string) => {
+export const getLocation = (idLocation: number) => {
     return Api.get(`/explore/locations/${idLocation}/?__a=1`);
 };
