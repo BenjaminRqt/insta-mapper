@@ -1,21 +1,23 @@
-import {PersistentStore} from "./main";
-import {INSTAGRAM_NAME} from "./store-names";
-import {getUserApi, getLocation} from "../logic/api/instagram.api";
-import LocationModel from "../model/LocationModel";
-import LocationsModel from "../model/LocationsModel";
+import {PersistentStore} from './main';
+import {INSTAGRAM_NAME} from './store-names';
+import {getUserApi, getLocation} from '../logic/api/instagram.api';
+import LocationModel from '../model/LocationModel';
+import LocationsModel from '../model/LocationsModel';
+import UserFactory from '../factory/userFactory';
+import User from '../model/User';
 
 interface InstagramMapper {
     loading: boolean,
-    user: Array<Object>
-    locations: LocationsModel
+    user?: User
+    locations?: LocationsModel
 }
 
 class InstagramStore extends PersistentStore<InstagramMapper> {
     protected data(): InstagramMapper {
         return {
             loading: false,
-            user: [],
-            locations: new LocationsModel()
+            user: undefined,
+            locations: undefined
         };
     }
 
@@ -26,25 +28,23 @@ class InstagramStore extends PersistentStore<InstagramMapper> {
             let user = response.data.graphql.user;
             let pictures = user.edge_owner_to_timeline_media.edges;
 
-            this.state.user = response.data.graphql.user
+            this.state.user = new UserFactory().create(response.data.graphql.user);
 
             let locations = new LocationsModel();
 
-            for (let i = 0; i < pictures.length; i++) {
-                if (pictures[i].node.location !== null) {
-                    if(!locations.has(pictures[i].node.location.id)) {
-                        await getLocation(pictures[i].node.location.id).then(response => {
-                            locations.addLocation(
-                                new LocationModel(
-                                    pictures[i].node.location.id,
-                                    response.data.graphql.location.lat,
-                                    response.data.graphql.location.lng
-                                )
-                            );
-                        });
+            for (let i = 0; i < this.state.user.pictures.length; i++) {
+                if(!locations.has(this.state.user.pictures[i].idLocation)) {
+                    await getLocation(this.state.user.pictures[i].idLocation).then(response => {
+                        locations.addLocation(
+                            new LocationModel(
+                                pictures[i].node.location.id,
+                                response.data.graphql.location.lat,
+                                response.data.graphql.location.lng
+                            )
+                        );
+                    });
 
-                        this.state.locations = locations;
-                    }
+                    this.state.locations = locations;
                 }
             }
 
@@ -53,7 +53,7 @@ class InstagramStore extends PersistentStore<InstagramMapper> {
     }
 
     resetUserAction() {
-        this.state.user = [];
+        this.state.user = undefined;
     }
 }
 

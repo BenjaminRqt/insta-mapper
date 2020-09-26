@@ -10,9 +10,9 @@
     <button @click="reset()">Reset</button>
   </div>
 
-  <div v-if="Object.keys(instagramState.user).length !== 0">
+  <div v-if="instagramState.user !== undefined">
     <p>Biography: {{ instagramState.user.biography }}</p>
-    <p>Number of pictures: {{ instagramState.user.edge_owner_to_timeline_media.edges.length }}</p>
+    <p>Number of pictures: {{ instagramState.user.pictures.length }}</p>
   </div>
 </template>
 
